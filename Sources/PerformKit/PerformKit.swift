@@ -14,11 +14,14 @@ public final class PKManager: NSObject, @unchecked Sendable {
 }
 
 extension PKManager: MXMetricManagerSubscriber {
+    
+    #if os(iOS) || os(tvOS) || targetEnvironment(macCatalyst)
     public func didReceive(_ payloads: [MXMetricPayload]) {
         for payload in payloads {
             debugPrint("----->>> \(payload.dictionaryRepresentation())")
         }
     }
+    #endif
     
     public func didReceive(_ payloads: [MXDiagnosticPayload]) {
         for payload in payloads {
